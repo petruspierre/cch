@@ -12,8 +12,4 @@ routes.post('/deck', DeckController.create)
 
 routes.delete('/deck/:id', DeckController.delete)
 
-routes.get('/play', (req,res) => {
-
-})
-
 module.exports = routes
