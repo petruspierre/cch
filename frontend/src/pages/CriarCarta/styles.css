@@ -1,0 +1,18 @@
+.formContainer {
+  width: 100%;
+  max-width: 500px;
+}
+
+.container_ {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fcfcfc;
+}
+
+header {
+  font-size: 30px;
+  margin-top: 50px;
+}
