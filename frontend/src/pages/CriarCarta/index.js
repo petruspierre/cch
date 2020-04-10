@@ -95,7 +95,7 @@ function CriarCarta() {
       </header>
 
       <div className="formContainer">
-        <form onSubmit={handleSubmit} className="w-100">
+        <form onSubmit={handleSubmit} className="w-50">
             <input
               className="form-control"
               type="text"

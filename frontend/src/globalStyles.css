@@ -8,7 +8,7 @@
 ul {
   display: grid;
   grid-template-columns: 150px 150px 150px;
-  grid-template-rows: repeat(15, 200px);
+  grid-template-rows: repeat(22, 200px);
   grid-gap: 24px;
   list-style: none;
 }
