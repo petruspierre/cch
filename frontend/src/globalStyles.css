@@ -1,7 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
 ul {
   display: grid;
-  grid-template-columns: 150px 150px 150px 150px;
-  grid-template-rows: 200px 200px 200px 200px;
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: repeat(15, 200px);
   grid-gap: 24px;
   list-style: none;
 }

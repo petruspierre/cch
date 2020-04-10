@@ -4,6 +4,9 @@ module.exports = {
   async index(req, res) {
     const cards = await connection('deck').select('*')
 
+    const [count] = await connection('deck').count()
+    res.header('X-Total-Count', count['count(*)'])
+
     return res.json(cards)
   },
 

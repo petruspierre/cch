@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import api from './services/api'
 
+import { FiTrash2 } from 'react-icons/fi'
+
 import './globalStyles.css'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +16,7 @@ function App() {
   const [type, setType] = useState('')
 
   const [listaCartasDados, setListaCartasDados] = useState([])
+  const [totalCartas, setTotalCartas] = useState(0)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -23,7 +26,7 @@ function App() {
       description,
     }
 
-    if(data.type === null || data.description == null){
+    if(data.type === "" || data.description === ""){
         alert('Preencha todos os campos')
     } else {
         try {
@@ -39,6 +42,15 @@ function App() {
     
   }
 
+  async function handleDeleteCard(id) {
+    try {
+      await api.delete(`deck/${id}`)
+      loadCartas(listaCartasDados)
+    } catch(err){
+      alert(err)
+    }
+  }
+
   function loadCartas(data){
     const cartas = data;
 
@@ -48,6 +60,9 @@ function App() {
       .map((carta) => <li key={carta.id} className="bg-danger card-body w-100 text-white rounded shadow mt-2">
         {carta.description}
         <span>{carta.id}</span>
+        <button style={lixeiraStyle} className="btn" type="button" onClick={() => handleDeleteCard(carta.id)}>
+          <FiTrash2 size={20} color="#eee" />
+        </button>
       </li>))
 
     setListaCartasVerdes(cartas
@@ -55,6 +70,9 @@ function App() {
       .map((carta) => <li key={carta.id} className="bg-success card-body w-100 text-white rounded shadow mt-2">
         {carta.description}
         <span>{carta.id}</span>
+        <button style={lixeiraStyle} className="btn" type="button" onClick={() => handleDeleteCard(carta.id)}>
+          <FiTrash2 size={20} color="#eee" />
+        </button>
       </li>))
   }
   
@@ -62,11 +80,13 @@ function App() {
     api.get('deck').then(res => {
       setListaCartasDados(res.data)
       loadCartas(res.data)
+      setTotalCartas(res.headers['x-total-count'])
     })
   }, [listaCartasDados])
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center">
+    <div className="container_">
+
       <header className="App-header">
         <p className="title">
           Criação de cartas
@@ -98,11 +118,13 @@ function App() {
           </div>
           
 
-          <div className="d-flex justify-content-center align-items-center">
+          <div className="d-flex flex-column justify-content-center align-items-center">
 
             <button type="submit" className="btn btn-outline-primary mt-2 mb-3 w-50">
               Enviar carta
             </button>
+
+            <p style={{fontSize:12}}>Total de cartas: {totalCartas}</p>
 
           </div>
         </form>
@@ -111,11 +133,20 @@ function App() {
 
       <div className="d-flex">
         <ul>{listaCartasVermelhas}</ul>
+        <div className="mr-5"></div>
         <ul>{listaCartasVerdes}</ul>
       </div>
 
     </div>
   );
+}
+
+const lixeiraStyle = {
+  position: 'absolute',
+  bottom: 3,
+  right: 3,
+  margin: 0,
+  padding: 0
 }
 
 export default App;

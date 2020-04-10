@@ -4,7 +4,11 @@ const cors = require('cors')
 
 const app = express()
 
-app.use(cors())
+const corsOptions = {
+  exposedHeaders: 'X-Total-Count',
+};
+
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(routes)
 
