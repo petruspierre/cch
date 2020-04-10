@@ -23,14 +23,20 @@ function App() {
       description,
     }
 
-    try {
-      await api.post('deck', data)
-      const novaLista = [...listaCartasDados, data]
-      loadCartas(novaLista)
-      setListaCartasDados(novaLista)
-    } catch(err) {
-      alert(err)
+    if(data.type === null || data.description == null){
+        alert('Preencha todos os campos')
+    } else {
+        try {
+            await api.post('deck', data)
+            const novaLista = [...listaCartasDados, data]
+            loadCartas(novaLista)
+            setListaCartasDados(novaLista)
+        } catch(err) {
+            alert(err)
+        }
     }
+
+    
   }
 
   function loadCartas(data){
@@ -57,7 +63,7 @@ function App() {
       setListaCartasDados(res.data)
       loadCartas(res.data)
     })
-  }, [])
+  }, [listaCartasDados])
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
