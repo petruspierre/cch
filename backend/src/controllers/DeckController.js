@@ -10,15 +10,15 @@ module.exports = {
     return res.json(cards)
   },
 
-  async create(req,res) {
+  create(req,res) {
     const { description, type } = req.body
 
-    const [id] = await connection('deck').insert({
+    connection('deck').insert({
       type,
       description
     })
-
-    return res.json({ id })
+    .then(_ => res.status(204).send())
+    .catch(err => res.status(400).json(err))
   },
 
   async delete(req,res) {

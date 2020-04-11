@@ -1,14 +1,15 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable('partidas', table => {
+    table.increments().primary()
     table.specificType('jogadores', 'text ARRAY')
-    table.integer('carta-vermelha').notNullable()
-    table.specificType('cartas-verdes', 'integer ARRAY')
-    table.specificType('historico-vermelhas', 'integer ARRAY')
+    table.integer('cartaVermelha').notNullable()
+    table.specificType('cartasVerdes', 'INT[]')
+    table.specificType('historicoVermelhas', 'INT[]')
     table.integer('rodada').notNullable()
-    table.integer('qtd-jogadores').notNullable()
+    table.integer('qtdJogadores').notNullable()
     table.integer('jogaram').notNullable()
-    table.integer('voto-do-juri').notNullable()
+    table.integer('votoDoJuri').notNullable()
   })
 };
 
