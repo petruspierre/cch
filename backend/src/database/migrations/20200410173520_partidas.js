@@ -6,6 +6,7 @@ exports.up = function(knex) {
     table.integer('cartaVermelha').notNullable()
     table.specificType('cartasVerdes', 'INT[]')
     table.specificType('historicoVermelhas', 'INT[]')
+    table.specificType('cartasSelecionadas', 'INT[]')
     table.integer('rodada').notNullable()
     table.integer('qtdJogadores').notNullable()
     table.integer('jogaram').notNullable()

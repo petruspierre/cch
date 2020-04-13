@@ -13,6 +13,7 @@ module.exports = {
       cartaVermelha, 
       cartasVerdes, 
       historicoVermelhas, 
+      cartasSelecionadas,
       rodada, 
       qtdJogadores, 
       jogaram, 
@@ -24,6 +25,7 @@ module.exports = {
       cartaVermelha, 
       cartasVerdes, 
       historicoVermelhas, 
+      cartasSelecionadas,
       rodada, 
       qtdJogadores, 
       jogaram, 
@@ -45,5 +47,14 @@ module.exports = {
       .delete()
     
     return res.status(204).send()
+  },
+
+  async proximaRodada(req,res){
+    // definir juri
+    // sortear vermelha
+  },
+
+  async reiniciarPartida(req,res){
+
   }
 }

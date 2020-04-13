@@ -17,10 +17,11 @@ module.exports = async function setupPlayer(match, playerId){
   let hand = []
   while(cont < 8){
     const cardId = getRandom(maxIdQuery.maxId)
-    const card = await connection('deck').where('type', 'green').where('id', cardId)
-    //console.log(usedCards.cartasVerdes)
+    let d = await connection('deck').where('type', 'green').where('id', cardId)
+    const card = d[0]
+    console.log(card)
 
-    if(card !== null && listaCartas.indexOf(cardId) === -1 && hand.indexOf(cardId) === -1){
+    if(card !== null && card !== undefined && listaCartas.indexOf(cardId) === -1 && hand.indexOf(cardId) === -1){
       hand.push(cardId)
       cont++;
     }
@@ -28,8 +29,10 @@ module.exports = async function setupPlayer(match, playerId){
   }
   connection('partidas').where('id', match).update({
     jogadores: [...listaPlayers, playerId],
-    cartasVerdes: [...listaCartas,...hand]
-  }).catch(err => console.log(err))
+    cartasVerdes: [...listaCartas,...hand],
+    qtdJogadores: listaPlayers.length + 1
+  })
+  .catch(err => console.log(err))
   
 
   return hand
